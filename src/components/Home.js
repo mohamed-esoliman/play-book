@@ -10,6 +10,7 @@ function Home() {
         getGames(5).then((data) => {
             setGames(data);
         });
+        console.log(games);
     }
     , []);
 
