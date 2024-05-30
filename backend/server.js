@@ -15,10 +15,11 @@ app.use(express.json());
 let accessToken = null;
 let apiClient = null;
 
+
 const getAccessToken = async () => {
   if (!accessToken){
     try{
-      const response = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.REACT_APP_IGDB_ID}&client_secret=${process.env.REACT_APP_IGDB_SECRET}&grant_type=client_credentials`);
+      const response = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.IGDB_ID}&client_secret=${process.env.IGDB_SECRET}&grant_type=client_credentials`);
       accessToken = response.data.access_token;
     }
     catch (err){
@@ -36,7 +37,7 @@ const getApiClient = async () => {
     const apiConfig = {
       baseURL: "https://api.igdb.com/v4",
       headers: {
-        'Client-ID': process.env.REACT_APP_IGDB_ID,
+        'Client-ID': process.env.IGDB_ID,
         'Authorization': `Bearer ${accessToken}`,
       },}
 
