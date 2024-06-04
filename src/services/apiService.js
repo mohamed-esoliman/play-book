@@ -4,14 +4,29 @@ import axios from 'axios';
 export const getGames = async (num) => {
   try{
     const response = await axios.post('http://localhost:5000/games', {
-      fields: "name, summary, rating",
-      limit: num
+      fields: "id, name, cover.url, genres.name, platforms.name, rating",
+      limit: num,
+      sort: "rating desc",
     });
 
-    return response.json();
+    return response.data;
   }
   catch (err){
     console.error(err);
   }
 };
 
+
+// fetch game details
+export const getGameDetails = async(id) => {
+  try{
+    const response = await axios.post('http://localhost:5000/specificGame', {
+      gameId: id
+    });
+
+    return response.data;
+  }
+  catch (err){
+    console.error(err)
+  }
+};

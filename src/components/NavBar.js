@@ -8,6 +8,10 @@ const NavBar = () => {
                 <h1>PlayBook</h1>
                 
             </div>
+            <div className="search">
+                <input type="text" placeholder="Search for games..."></input>
+                <button>Search</button>
+            </div>
             <div className="links">
                 <ul>
                     <li>

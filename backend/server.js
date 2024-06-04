@@ -26,7 +26,7 @@ const getAccessToken = async () => {
       console.error(err);
     }
   }
-  
+
   return accessToken;
 };
 
@@ -39,6 +39,7 @@ const getApiClient = async () => {
       headers: {
         'Client-ID': process.env.IGDB_ID,
         'Authorization': `Bearer ${accessToken}`,
+        'content-type': 'text/plain',
       },}
 
       apiClient = axios.create(apiConfig);
@@ -52,11 +53,8 @@ const getApiClient = async () => {
 app.post('/games', async (req, res) => {
   try{
     const apiClient = await getApiClient();
-    const response = await apiClient.post('/games', {
-      fields: req.body.fields,
-      limit: req.body.limit
-    });
-
+    const query = `fields ${req.body.fields}; limit ${req.body.limit}; sort ${req.body.sort};`;
+    const response = await apiClient.post('/games', query);
     res.send(response.data);
   }
   catch (err){
@@ -64,6 +62,20 @@ app.post('/games', async (req, res) => {
   }
 });
 
+
+// get all details for one game
+
+app.post('/specificGame', async (req, res) => {
+  try{
+    const apiClient = await getApiClient();
+    const query = `fields *; where id = ${req.body.gameId}`
+    const response = await apiClient.post('/games', query)
+    res.send(response.data)
+  }
+  catch(err){
+    console.error(err)
+  }
+});
 
 
 // start the server

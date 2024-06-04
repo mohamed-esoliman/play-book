@@ -3,12 +3,12 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer>
-            <div className="right">
+            <div className="left">
                 <p>&copy; 2024 PlayBook</p>
                 <p>placeholder</p>
                 <p>placeholder</p>
             </div>
-            <div className="left">
+            <div className="right">
                 <form>
                     <label htmlFor="name">Name:</label>
                     <input type="text" id="name" name="name" />

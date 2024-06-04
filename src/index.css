@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: rgb(234,153,66);
+    background-color: #fff;
 }
 
 .App {
@@ -85,9 +85,23 @@ footer {
     align-items: center;
 }
 
-footer p {
-    color: #ffffff;
-    font-size: 15px;
-    line-height: 24px;
-    margin: 0 12px 6px 12px;
+footer .left {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .right {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .right form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

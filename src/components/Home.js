@@ -1,30 +1,28 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { getGames } from '../services/apiService';
 
 
-
-function Home() {
-    const [games, setGames] = useState([]);
-    useEffect(() => {
-        getGames(5).then((data) => {
-            setGames(data);
-        });
-    }
-    , []);
-
-
+function Home({ gameList }) {
 
     return (
         <div>
             <h1>Welcome to the Homepage!</h1>
             <p>This is a simple homepage template.</p>
-            {/* {games.map((game) => (
-                <div className="gameCard" key={game.id}>
-                    <h2>{game.title}</h2>
-                    <p>{game.description}</p>
-                </div>
-            ))} */}
+            <div className="gameList">
+                {gameList.map((game) => {
+                    return (
+                        <div className="gameCard" key={game.id}>
+                            <div className="gameCover">
+                                {game.cover && <img src={`https:${game.cover.url}`} alt={game.name} />}
+                            </div>
+                            <div className="gameData">
+                                <h2>{game.name}</h2>
+                                <p>Rating: {game.rating}</p>
+                                <p>Released: {game.released}</p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }
