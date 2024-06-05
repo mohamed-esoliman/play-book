@@ -53,7 +53,8 @@ const getApiClient = async () => {
 app.post('/games', async (req, res) => {
   try{
     const apiClient = await getApiClient();
-    const query = `fields ${req.body.fields}; limit ${req.body.limit}; sort ${req.body.sort};`;
+    let offset = (req.body.pageNumber - 1) * req.body.limit;
+    const query = `fields ${req.body.fields}; offset ${offset}; limit ${req.body.limit}; sort ${req.body.sort};`;
     const response = await apiClient.post('/games', query);
     res.send(response.data);
   }

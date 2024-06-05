@@ -1,14 +1,33 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { getGames } from '../services/apiService';
 
 
-function Home({ gameList }) {
+function Home() {
+
+    const [games, setGames] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(10);
+    const limitPerPage = 40;
+
+  
+    useEffect(() => {
+        let mounted = true;
+        if (mounted){
+        getGames(page, limitPerPage).then((res) => {
+            setGames(res);
+        });
+        }
+
+        return () => mounted = false;
+    }, [page]);
 
     return (
         <div>
             <h1>Welcome to the Homepage!</h1>
-            <p>This is a simple homepage template.</p>
+            <p>{`page ${page}`}</p>
             <div className="gameList">
-                {gameList.map((game) => {
+                {games.map((game) => {
                     return (
                         <div className="gameCard" key={game.id}>
                             <div className="gameCover">
@@ -23,6 +42,11 @@ function Home({ gameList }) {
                     );
                 })}
             </div>
+            <span className="changePage">
+                <button onClick={() => setPage(page - 1)} disabled={page === 1}>Previous</button>
+                <p>{`page ${page}`}</p>
+                <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>Next</button>
+            </span>
         </div>
     );
 }

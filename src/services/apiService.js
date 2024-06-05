@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 // fetch games
-export const getGames = async (num) => {
+export const getGames = async (pageNumber, limit) => {
   try{
     const response = await axios.post('http://localhost:5000/games', {
       fields: "id, name, cover.url, genres.name, platforms.name, rating",
-      limit: num,
+      pageNumber: pageNumber,
+      limit: limit,
       sort: "rating desc",
     });
 
