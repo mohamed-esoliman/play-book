@@ -25,7 +25,7 @@ export const getGameDetails = async(id) => {
       gameId: id
     });
 
-    return response.data;
+    return response.data[0];
   }
   catch (err){
     console.error(err)

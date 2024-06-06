@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './navbar.module.css';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
     return (
         <nav>
-            <div className="header">
+            <div className={styles.header}>
                 <h1>PlayBook</h1>
                 
             </div>
@@ -12,7 +13,7 @@ const NavBar = () => {
                 <input type="text" placeholder="Search for games..."></input>
                 <button>Search</button>
             </div>
-            <div className="links">
+            <div className={styles.links}>
                 <ul>
                     <li>
                         <NavLink to="/">Home</NavLink>

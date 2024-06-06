@@ -1,14 +1,15 @@
 import React from 'react';
+import styles from './footer.module.css';
 
 const Footer = () => {
     return (
         <footer>
-            <div className="left">
+            <div className={styles.left}>
                 <p>&copy; 2024 PlayBook</p>
                 <p>placeholder</p>
                 <p>placeholder</p>
             </div>
-            <div className="right">
+            <div className={styles.right}>
                 <form>
                     <label htmlFor="name">Name:</label>
                     <input type="text" id="name" name="name" />

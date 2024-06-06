@@ -39,7 +39,6 @@ const getApiClient = async () => {
       headers: {
         'Client-ID': process.env.IGDB_ID,
         'Authorization': `Bearer ${accessToken}`,
-        'content-type': 'text/plain',
       },}
 
       apiClient = axios.create(apiConfig);
@@ -54,7 +53,7 @@ app.post('/games', async (req, res) => {
   try{
     const apiClient = await getApiClient();
     let offset = (req.body.pageNumber - 1) * req.body.limit;
-    const query = `fields ${req.body.fields}; offset ${offset}; limit ${req.body.limit}; sort ${req.body.sort};`;
+    let query = `fields ${req.body.fields}; offset ${offset}; limit ${req.body.limit}; sort ${req.body.sort};`;
     const response = await apiClient.post('/games', query);
     res.send(response.data);
   }
@@ -69,9 +68,9 @@ app.post('/games', async (req, res) => {
 app.post('/specificGame', async (req, res) => {
   try{
     const apiClient = await getApiClient();
-    const query = `fields *; where id = ${req.body.gameId}`
-    const response = await apiClient.post('/games', query)
-    res.send(response.data)
+    let query = `fields *; where id = ${req.body.gameId};`;
+    const response = await apiClient.post('/games', query);
+    res.send(response.data);
   }
   catch(err){
     console.error(err)
