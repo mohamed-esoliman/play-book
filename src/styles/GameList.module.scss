@@ -1,0 +1,21 @@
+.gameList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.gameItem {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+.gameItem h3 {
+    margin-top: 0;
+}
+
+.gameItem p {
+    margin-bottom: 0;
+}

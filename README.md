@@ -1,1 +1,1 @@
-A comprehensive gaming platform for reviews, ratings, and social interaction.
+Play-Book is a full-stack web application designed for gamers to explore, review, and discuss their favorite games. The project utilizes the IGDB API to fetch game data and Firebase for user authentication and data storage. Built with Next.js and styled using SASS, Play-Book aims to provide a seamless and interactive platform for the gaming community.
