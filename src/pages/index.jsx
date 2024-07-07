@@ -1,9 +1,11 @@
 import Layout from "../layout/Layout";
-import styles from "../styles/GameList.module.scss";
+import styles from "../styles/components/GameList.module.scss";
 import { useEffect, useState } from "react";
 import { getGames } from "../services/apiServices";
+import Link from "next/link";
+import GameCard from "../components/GameCard";
 
-export default function Home() {
+const Home = () => {
 
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
@@ -33,19 +35,11 @@ export default function Home() {
           <h1>Welcome to the Homepage!</h1>
           <p>{`page ${page}`}</p>
           <div className="gameList">
+            console.log(games)
               {games.map((game) => {
                   return (
-                      <Link to={`/game/${game.id}`} key={game.id}>
-                          <div className="gameCard" key={game.id}>
-                              <div className="gameCover">
-                                  {game.cover && <img src={`https:${game.cover.url}`} alt={game.name} />}
-                              </div>
-                              <div className="gameData">
-                                  <h2>{game.name}</h2>
-                                  <p>Rating: {game.rating}</p>
-                                  <p>Released: {game.released}</p>
-                              </div>
-                          </div>
+                      <Link href={`/game/${game.id}`} key={game.id}>
+                          <GameCard game={game} />
                       </Link>
                   );
               })}
@@ -60,3 +54,6 @@ export default function Home() {
     </Layout>
   );
 }
+
+
+export default Home;

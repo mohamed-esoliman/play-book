@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 // fetch games
-export const getGames = async (pageNumber, limit) => {
+export const getGames = async (pageNumber, limitPerPage) => {
   try{
     const response = await axios.post('http://localhost:5000/games', {
-      fields: "id, name, cover.url, genres.name, platforms.name, rating",
-      pageNumber: pageNumber,
-      limit: limit,
-      sort: "rating desc",
+      fields: "id, name, cover.url, first_release_date, platforms.name, rating, rating_count",
+      page_number: pageNumber,
+      limit_per_page: limitPerPage,
     });
 
+    console.log(response.data);
     return response.data;
   }
   catch (err){

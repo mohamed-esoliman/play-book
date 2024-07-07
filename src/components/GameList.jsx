@@ -1,4 +1,4 @@
-import styles from "../styles/GameList.module.scss";
+import styles from "../styles/components/GameList.module.scss";
 
 const games = [
   { id: 1, name: "Game One", description: "Description for game one." },

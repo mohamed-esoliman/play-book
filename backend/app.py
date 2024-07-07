@@ -1,12 +1,15 @@
-import os
-import requests
 from flask import Flask, request, jsonify
+import requests
+from flask_cors import CORS
+import os
 from dotenv import load_dotenv
+import time
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 access_token = None
 api_client = None
@@ -32,7 +35,7 @@ def get_access_token():
 
 
 def get_api_client():
-    global api_client
+    global api_client, access_token
     if not api_client:
         access_token = get_access_token()
         api_client = {
@@ -45,20 +48,42 @@ def get_api_client():
     return api_client
 
 
+def refresh_access_token():
+    global api_client, access_token
+    access_token = None
+    api_client = None
+    return get_api_client()
+
+
 @app.route("/games", methods=["POST"])
 def get_games():
     try:
         api_client = get_api_client()
-        response = requests.post(
-            f"{api_client['base_url']}/games",
-            json={
-                "fields": request.json.get("fields"),
-                "limit": request.json.get("limit"),
-            },
+
+        limit_per_page = request.json.get("limit_per_page", 20)
+        offset = (request.json.get("page_number", 1) - 1) * limit_per_page
+
+        popularity_response = requests.post(
+            f"{api_client['base_url']}/popularity_primitives",
+            data=f"fields game_id, value; sort value desc; limit {limit_per_page}; offset {offset};",
             headers=api_client["headers"],
         )
+        popularity_response.raise_for_status()
+        popular_games_data = popularity_response.json()
+
+        game_ids_str = ','.join([str(game['game_id']) for game in popular_games_data])
+
+        query = f"fields {request.json.get('fields', '*')}; where id = ({game_ids_str});"
+
+        response = requests.post(
+            f"{api_client['base_url']}/games",
+            data=query,
+            headers=api_client["headers"],
+        )
+
         response.raise_for_status()
         return jsonify(response.json())
+
     except requests.exceptions.RequestException as err:
         print(f"Error: {err}")
         return jsonify({"error": str(err)}), 500
@@ -72,6 +97,13 @@ def get_specific_game():
         response = requests.post(
             f"{api_client['base_url']}/games", data=query, headers=api_client["headers"]
         )
+        if response.status_code == 401:  # Unauthorized, likely token expiration
+            api_client = refresh_access_token()
+            response = requests.post(
+                f"{api_client['base_url']}/games",
+                data=query,
+                headers=api_client["headers"],
+            )
         response.raise_for_status()
         return jsonify(response.json())
     except requests.exceptions.RequestException as err:
