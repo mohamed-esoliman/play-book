@@ -1,5 +1,5 @@
-import Layout from "../layout/Layout";
-import styles from "../styles/components/GameList.module.scss";
+import Layout from "../layout/layout";
+import styles from "../styles/pages/Home.module.scss";
 import { useEffect, useState } from "react";
 import { getGames } from "../services/apiServices";
 import Link from "next/link";
@@ -30,12 +30,8 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="container">
-        <div>
-          <h1>Welcome to the Homepage!</h1>
-          <p>{`page ${page}`}</p>
-          <div className="gameList">
-            console.log(games)
+        <div className={styles.container}>
+          <div className={styles.gameList}>
               {games.map((game) => {
                   return (
                       <Link href={`/game/${game.id}`} key={game.id}>
@@ -50,7 +46,6 @@ const Home = () => {
               <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>Next</button>
           </span>
         </div>
-      </div>
     </Layout>
   );
 }

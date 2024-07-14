@@ -82,7 +82,18 @@ def get_games():
         )
 
         response.raise_for_status()
-        return jsonify(response.json())
+        games = response.json()
+
+        # for game in games:
+        #     response = requests.post(
+        #         f"{api_client['base_url']}/images",
+        #         data=f"fields cover_big; where id = {game.get('id')};",
+        #         headers=api_client["headers"],
+        #     )
+        #     response.raise_for_status()
+        #     print(response.json())
+
+        return jsonify(games)
 
     except requests.exceptions.RequestException as err:
         print(f"Error: {err}")
@@ -97,7 +108,7 @@ def get_specific_game():
         response = requests.post(
             f"{api_client['base_url']}/games", data=query, headers=api_client["headers"]
         )
-        if response.status_code == 401:  # Unauthorized, likely token expiration
+        if response.status_code == 401:
             api_client = refresh_access_token()
             response = requests.post(
                 f"{api_client['base_url']}/games",

@@ -1,0 +1,29 @@
+// SCSS variables for light theme
+$light-background-color: #ffffff;
+$light-text-color: #333333;
+$light-secondary-text-color: #555555;
+$light-button-bg-color: #6c63ff;
+$light-button-bg-hover-color: #5a52e6;
+$light-link-color: #d6336c;
+$light-box-shadow-color: rgba(0, 0, 0, 0.1);
+$light-card-bg-color: #f9f9fb;
+$light-accent-color: #ff6f91;
+
+// SCSS variables for dark theme
+$dark-background-color: #121212;
+$dark-text-color: #e0e0e0;
+$dark-secondary-text-color: #b0b0b0;
+$dark-button-bg-color: #d6336c;
+$dark-button-bg-hover-color: #b0295c;
+$dark-link-color: #6c63ff;
+$dark-box-shadow-color: rgba(0, 0, 0, 0.5);
+$dark-card-bg-color: #1e1e1e;
+$dark-accent-color: #ff6f91;
+
+
+@mixin display-flex($direction: column, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
