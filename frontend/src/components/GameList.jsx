@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import GameCard from "./GameCard";
 import styles from "../styles/components/GameList.module.scss";
@@ -11,14 +11,36 @@ export default function GameList({ initialGames }) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10);
   const limitPerPage = 40;
+  const [cachedPages, setCachedPages] = useState({ 1: initialGames });
 
-  const loadMoreGames = async () => {
-    const nextPage = page + 1;
-    const newGames = await getGames(nextPage, limitPerPage);
-    if (Array.isArray(newGames)) {
-      setGames([...games, ...newGames]);
-      setPage(nextPage);
-    }
+  const fetchGames = useCallback(
+    async (pageNumber) => {
+      if (cachedPages[pageNumber]) {
+        setGames(cachedPages[pageNumber]);
+      } else {
+        const newGames = await getGames(pageNumber, limitPerPage);
+        if (Array.isArray(newGames)) {
+          setGames(newGames);
+          setCachedPages((prevCache) => ({
+            ...prevCache,
+            [pageNumber]: newGames,
+          }));
+        }
+      }
+    },
+    [cachedPages]
+  );
+
+  useEffect(() => {
+    fetchGames(page);
+  }, [page, fetchGames]);
+
+  const handlePrevPage = () => {
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
   return (
@@ -31,8 +53,12 @@ export default function GameList({ initialGames }) {
         ))}
       </div>
       <span className={styles.changePage}>
-        <button onClick={loadMoreGames} disabled={page === totalPages}>
-          Load More
+        <button onClick={handlePrevPage} disabled={page === 1}>
+          Previous
+        </button>
+        <p>{`Page ${page} of ${totalPages}`}</p>
+        <button onClick={handleNextPage} disabled={page === totalPages}>
+          Next
         </button>
       </span>
     </>
