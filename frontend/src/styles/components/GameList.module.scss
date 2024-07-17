@@ -1,21 +1,47 @@
+// GameList.module.scss
 .gameList {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
+    padding: 20px;
 }
 
-.gameItem {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 15px;
-    flex: 1 1 calc(33.333% - 20px);
-    box-sizing: border-box;
+.loading,
+.error,
+.noGames {
+    text-align: center;
+    padding: 20px;
+    grid-column: 1 / -1;
+    color: var(--text-color);
 }
 
-.gameItem h3 {
-    margin-top: 0;
-}
+.changePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
 
-.gameItem p {
-    margin-bottom: 0;
+    button {
+        padding: 8px 16px;
+        background-color: var(--button-bg-color);
+        color: var(--background-color);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: var(--button-bg-hover-color);
+        }
+    }
+
+    p {
+        color: var(--text-color);
+    }
 }
