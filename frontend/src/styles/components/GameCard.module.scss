@@ -1,37 +1,32 @@
+// GameCard.module.scss
 .gameCard {
     display: flex;
-    background-color: var(--card-bg-color);
-    border-radius: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 4px 6px var(--box-shadow-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 
     &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 12px var(--box-shadow-color);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .gameImage {
-        flex: 0 0 150px;
+        flex: 1;
 
         img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
         }
     }
 
     .gameInfo {
-        flex: 1;
+        flex: 2;
         padding: 1rem;
-        display: flex;
-        flex-direction: column;
 
         h2 {
-            margin: 0 0 0.5rem;
-            color: var(--text-color);
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .gameRating {
@@ -40,67 +35,25 @@
             margin-bottom: 0.5rem;
 
             .rating {
-                font-size: 1.5rem;
                 font-weight: bold;
-                color: var(--accent-color);
                 margin-right: 0.5rem;
-            }
-
-            .ratingCount {
-                font-size: 0.875rem;
-                color: var(--secondary-text-color);
             }
         }
 
         .gameReleased {
-            font-size: 0.875rem;
-            color: var(--secondary-text-color);
+            display: block;
             margin-bottom: 0.5rem;
         }
 
         .gamePlatforms {
             display: flex;
-            flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1rem;
 
             span {
-                background-color: var(--button-bg-color);
-                color: var(--background-color);
+                background-color: #f0f0f0;
                 padding: 0.25rem 0.5rem;
                 border-radius: 4px;
-                font-size: 0.75rem;
             }
-        }
-
-        .expandGame {
-            align-self: flex-end;
-            background-color: var(--button-bg-color);
-            border: none;
-            color: var(--background-color);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-
-            &:hover {
-                background-color: var(--button-bg-hover-color);
-            }
-
-            &::after {
-                content: 'Expand';
-                font-size: 0.875rem;
-            }
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    .gameCard {
-        flex-direction: column;
-
-        .gameImage {
-            flex: 0 0 200px;
         }
     }
 }

@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic'
 import styles from "../styles/Home.module.scss";
-import GameList from "../components/GameList";
 import { getGames } from "../services/apiServices";
 
 export const metadata = {
@@ -7,12 +7,16 @@ export const metadata = {
   description: 'Browse our collection of games',
 }
 
-export default async function Home() {
+const DynamicGameList = dynamic(() => import('../components/GameList'), {
+  ssr: false,
+})
+
+export default async function HomePage() {
   const initialGames = await getGames(1, 40);
 
   return (
     <div className={styles.container}>
-      <GameList initialGames={initialGames} />
+      <DynamicGameList initialGames={initialGames} />
     </div>
   );
 }

@@ -60,12 +60,12 @@ def get_games():
     try:
         api_client = get_api_client()
 
-        limit_per_page = request.json.get("limit_per_page", 20)
-        offset = (request.json.get("page_number", 1) - 1) * limit_per_page
+        popularity_query = request.json.get("popularityQuery", "")
+        fields = request.json.get("fields", "*")
 
         popularity_response = requests.post(
             f"{api_client['base_url']}/popularity_primitives",
-            data=f"fields game_id, value; sort value desc; limit {limit_per_page}; offset {offset};",
+            data=popularity_query,
             headers=api_client["headers"],
         )
         popularity_response.raise_for_status()
@@ -73,7 +73,7 @@ def get_games():
 
         game_ids_str = ','.join([str(game['game_id']) for game in popular_games_data])
 
-        query = f"fields {request.json.get('fields', '*')}; where id = ({game_ids_str});"
+        query = f"fields {fields}; where id = ({game_ids_str});"
 
         response = requests.post(
             f"{api_client['base_url']}/games",
@@ -95,7 +95,7 @@ def get_games():
 def get_specific_game():
     try:
         api_client = get_api_client()
-        query = f"fields *; where id = {request.json.get('gameId')};"
+        query = request.json.get("query", "")
         response = requests.post(
             f"{api_client['base_url']}/games", data=query, headers=api_client["headers"]
         )

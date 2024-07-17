@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useState, useEffect, useMemo} from "react";
 import GameCard from "./GameCard";
 import styles from "../styles/components/GameList.module.scss";
 import { getGames } from "../services/apiServices";
 
-export default function GameList({ initialGames }) {
+const GameList = ({ initialGames }) => {
+
   const [games, setGames] = useState(initialGames || []);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10);
@@ -14,14 +14,21 @@ export default function GameList({ initialGames }) {
   const [error, setError] = useState(null);
   const limitPerPage = 40;
 
+  const gameCache = useMemo(() => ({}), []);
+
   useEffect(() => {
     const fetchGames = async () => {
+      if (gameCache[page]) {
+        setGames(gameCache[page]);
+        return;
+      }
       setIsLoading(true);
       setError(null);
       try {
         const newGames = await getGames(page, limitPerPage);
         if (Array.isArray(newGames)) {
           setGames(newGames);
+          gameCache[page] = newGames;
         } else {
           throw new Error("Received invalid data from the API");
         }
@@ -59,9 +66,7 @@ export default function GameList({ initialGames }) {
       <div className={styles.gameList}>
         {games && games.length > 0 ? (
           games.map((game) => (
-            <Link href={`/game/${game.id}`} key={game.id}>
-              <GameCard game={game} />
-            </Link>
+            <GameCard game={game} />
           ))
         ) : (
           <div className={styles.noGames}>No games available.</div>
@@ -79,3 +84,5 @@ export default function GameList({ initialGames }) {
     </>
   );
 }
+
+export default GameList;

@@ -1,0 +1,40 @@
+// GameDetails.module.scss
+.gameDetails {
+    padding: 2rem;
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .gameContent {
+        display: flex;
+        gap: 2rem;
+
+        .gameCover {
+            flex: 1;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .gameInfo {
+            flex: 2;
+
+            p {
+                margin-bottom: 1rem;
+            }
+
+            .gameTrailer {
+                margin-top: 2rem;
+
+                video {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
