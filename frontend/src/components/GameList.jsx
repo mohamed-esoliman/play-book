@@ -1,12 +1,11 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import GameCard from "./GameCard";
 import styles from "@/styles/components/GameList.module.scss";
 import { getGames } from "@/services/apiServices";
 
 const GameList = ({ initialGames }) => {
-
   const [games, setGames] = useState(initialGames || []);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10);
@@ -14,7 +13,13 @@ const GameList = ({ initialGames }) => {
   const [error, setError] = useState(null);
   const limitPerPage = 40;
 
-  const gameCache = useMemo(() => ({}), []);
+  const gameCache = useMemo(() => {
+    const cache = {};
+    if (initialGames && initialGames.length > 0) {
+      cache[1] = initialGames;
+    }
+    return cache;
+  }, [initialGames]);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -40,10 +45,12 @@ const GameList = ({ initialGames }) => {
       }
     };
 
-    if (page !== 1 || !initialGames) {
+    if (!gameCache[page]) {
       fetchGames();
+    } else {
+      setGames(gameCache[page]);
     }
-  }, [page, initialGames]);
+  }, [page, gameCache]);
 
   const handlePrevPage = () => {
     setPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -65,9 +72,7 @@ const GameList = ({ initialGames }) => {
     <>
       <div className={styles.gameList}>
         {games && games.length > 0 ? (
-          games.map((game) => (
-            <GameCard game={game} />
-          ))
+          games.map((game) => <GameCard key={game.id} game={game} />)
         ) : (
           <div className={styles.noGames}>No games available.</div>
         )}
@@ -83,6 +88,6 @@ const GameList = ({ initialGames }) => {
       </span>
     </>
   );
-}
+};
 
 export default GameList;
