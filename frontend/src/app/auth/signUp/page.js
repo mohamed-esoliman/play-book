@@ -3,9 +3,11 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/config/firebaseConfig'
+import { signIn } from 'next-auth/react'
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
 import styles from '@/styles/auth/SignInPage.module.scss'
 import toast from 'react-hot-toast'
+import { FcGoogle } from 'react-icons/fc'
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('')
@@ -74,6 +76,18 @@ export default function SignUpPage() {
     }
   }
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signIn('google', { callbackUrl: '/' })
+      if (result?.error) {
+        toast.error('Failed to sign in with Google')
+      }
+    } catch (error) {
+      console.error('Google sign-in error:', error)
+      toast.error('An error occurred during Google sign-in. Please try again.')
+    }
+  }
+
   return (
     <div className={styles.loginContainer}>
       <img
@@ -136,6 +150,22 @@ export default function SignUpPage() {
         >
           Sign Up
         </button>
+
+        <div className={styles.divider}>
+          <hr className={styles.line} />
+          <span className={styles.orText}>or</span>
+          <hr className={styles.line} />
+        </div>
+        
+        <button
+          type="button"
+          className={styles.googleButton}
+          onClick={handleGoogleSignIn}
+        >
+          <FcGoogle className={styles.googleIcon} />
+          Sign up with Google
+        </button>
+
       </form>
       <p className={styles.signupPrompt}>
         Already have an account?{' '}

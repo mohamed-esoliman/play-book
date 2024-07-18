@@ -13,6 +13,8 @@ const GameList = ({ initialGames }) => {
   const [error, setError] = useState(null);
   const limitPerPage = 40;
 
+  console.log("initialGames", initialGames);
+
   const gameCache = useMemo(() => {
     const cache = {};
     if (initialGames && initialGames.length > 0) {

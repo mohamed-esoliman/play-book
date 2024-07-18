@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import styles from '@/styles/auth/SignInPage.module.scss'
 import { toast } from 'react-hot-toast'
+import { FcGoogle } from 'react-icons/fc'
 
 export default function SignInPage() {
   const [email, setEmail] = useState('')
@@ -41,6 +42,20 @@ export default function SignInPage() {
       }
     }
   }
+
+  const handleGoogleSignIn = async () => {
+    const response = await signIn('google', { callbackUrl: '/' });
+    if (response?.error) {
+        toast.error('Google sign-in failed');
+    } else {
+        toast.success('Signed in with Google');
+        setTimeout(() => {
+            router.push('/');
+        }, 1000);
+    }
+  }
+
+
 
   return (
     <div className={styles.loginContainer}>
@@ -92,6 +107,22 @@ export default function SignInPage() {
         >
           Sign in
         </button>
+
+        <div className={styles.divider}>
+          <hr className={styles.line} />
+          <span className={styles.orText}>or</span>
+          <hr className={styles.line} />
+        </div>
+        
+        <button
+          type="button"
+          className={styles.googleButton}
+          onClick={handleGoogleSignIn}
+        >
+          <FcGoogle className={styles.googleIcon} />
+          Sign in with Google
+        </button>
+
       </form>
       <p className={styles.signupPrompt}>
         Not a member?{' '}

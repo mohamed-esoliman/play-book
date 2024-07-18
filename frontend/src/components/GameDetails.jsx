@@ -19,6 +19,8 @@ const GameDetails = ({gameId}) => {
     fetchGameDetails();
   }, [gameId]);
 
+  console.log(gameData);
+
   return (
     <div className={styles.gameDetails}>
       <h1>{gameData.name}</h1>

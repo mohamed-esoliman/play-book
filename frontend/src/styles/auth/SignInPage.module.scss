@@ -129,3 +129,50 @@
     font-size: 12px;
     margin-top: 2px;
 }
+
+// New styles for Google sign-in
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--secondary-text-color);
+}
+
+.orText {
+    margin: 0 10px;
+    color: var(--secondary-text-color);
+    font-size: 14px;
+}
+
+.googleButton {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    box-shadow: 0 1px 2px 0 var(--box-shadow-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    border: 1px solid var(--secondary-text-color);
+
+    &:hover {
+        background-color: var(--button-bg-hover-color);
+    }
+}
+
+.googleIcon {
+    margin-right: 10px;
+    font-size: 18px;
+}
