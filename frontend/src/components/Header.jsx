@@ -1,24 +1,15 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
-import styles from "../styles/components/Header.module.scss";
-import { useAuth } from "../contexts/AuthContext";
-import { signOut } from "firebase/auth";
-import { auth } from "../config/firebaseConfig";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import styles from "@/styles/components/Header.module.scss";
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const { user } = useAuth();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (localStorage.getItem("darkMode") === "true") {
-      setDarkMode(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
     document.documentElement.setAttribute(
       "data-theme",
       darkMode ? "dark" : "light"
@@ -27,7 +18,7 @@ const Header = () => {
 
   const handleSignOut = async () => {
     try {
-      await signOut(auth);
+      await signOut({ callbackUrl: "/" });
     } catch (error) {
       console.error("Error signing out: ", error);
     }
@@ -35,7 +26,9 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <h1>Play-Book</h1>
+      <Link href="/">
+        <h1>PlayBook</h1>
+      </Link>
       <nav>
         <button onClick={() => setDarkMode(!darkMode)} />
         <ul>
@@ -48,16 +41,16 @@ const Header = () => {
           <li>
             <Link href="/about">About</Link>
           </li>
-          {user ? (
+          {status === "authenticated" && session?.user ? (
             <>
-              <li>Welcome, {user.email}</li>
+              <li>Welcome, {session.user.name || session.user.email}</li>
               <li>
                 <button onClick={handleSignOut}>Sign Out</button>
               </li>
             </>
           ) : (
             <li>
-              <Link href="/authentication">Sign In</Link>
+              <Link href="/auth/signIn">Sign In</Link>
             </li>
           )}
         </ul>

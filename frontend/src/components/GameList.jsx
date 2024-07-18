@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useMemo} from "react";
 import GameCard from "./GameCard";
-import styles from "../styles/components/GameList.module.scss";
-import { getGames } from "../services/apiServices";
+import styles from "@/styles/components/GameList.module.scss";
+import { getGames } from "@/services/apiServices";
 
 const GameList = ({ initialGames }) => {
 

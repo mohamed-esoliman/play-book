@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import styles from "../styles/components/GameDetails.module.scss";
-import { getGameDetails } from "../services/apiServices";
+import styles from "@/styles/components/GameDetails.module.scss";
+import { getGameDetails } from "@/services/apiServices";
 
 const GameDetails = ({gameId}) => {
 

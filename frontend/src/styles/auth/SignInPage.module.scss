@@ -1,0 +1,131 @@
+.loginContainer {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 24px;
+    background-color: var(--background-color);
+}
+
+.loginLogo {
+    height: 40px;
+    width: auto;
+    margin-bottom: 40px;
+}
+
+.loginTitle {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 36px;
+    letter-spacing: -0.025em;
+    color: var(--text-color);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.loginForm {
+    width: 100%;
+    max-width: 384px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--text-color);
+}
+
+.formInput {
+    margin-top: 8px;
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    box-shadow: 0 1px 2px 0 var(--box-shadow-color);
+    font-size: 14px;
+    line-height: 24px;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--accent-color);
+    }
+}
+
+.forgotPassword {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--link-color);
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: -16px;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.submitButton {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: var(--button-bg-color);
+    color: var(--background-color);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    box-shadow: 0 1px 2px 0 var(--box-shadow-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    border: none;
+
+    &:hover {
+        background-color: var(--button-bg-hover-color);
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}
+
+.signupPrompt {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+.signupLink {
+    font-weight: 600;
+    color: var(--link-color);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.errorList {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 4px;
+}
+
+.errorText {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+}

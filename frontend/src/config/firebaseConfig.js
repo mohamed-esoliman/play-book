@@ -1,5 +1,4 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getApps, getApp, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 
@@ -13,18 +12,7 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDQgPkMNgFQEYkLQl58t_HJDqGZsEHo2G4",
-//   authDomain: "play-book2024.firebaseapp.com",
-//   projectId: "play-book2024",
-//   storageBucket: "play-book2024.appspot.com",
-//   messagingSenderId: "737454250893",
-//   appId: "1:737454250893:web:66cdae83824c11f4e57bc4",
-//   measurementId: "G-HMGBZ8DB61"
-// };
-
-const app = initializeApp(firebaseConfig);
-const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+const app = getApps().length? getApp(): initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth };
+export { app, auth };

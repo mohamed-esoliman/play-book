@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "../styles/components/GameCard.module.scss";
+import styles from "@/styles/components/GameCard.module.scss";
 
 const GameCard = ({ game }) => {
   const toDate = (timestamp) => {
