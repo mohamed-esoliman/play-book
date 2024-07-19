@@ -26,7 +26,7 @@ export const getGames = async (pageNumber, limitPerPage) => {
 export const getGameDetails = async(id) => {
   try{
     const query = `fields *; where id = ${id};`;
-    const response = await axios.post('http://localhost:5000/specificGame', {
+    const response = await axios.post('http://localhost:5000/games/specificGame', {
       query: query
     });
 
@@ -34,5 +34,22 @@ export const getGameDetails = async(id) => {
   }
   catch (err){
     console.error(err)
+  }
+};
+
+
+// search games
+export const searchGames = async (query, limit = 10) => {
+  try {
+    const response = await axios.get('http://localhost:5000/games/search', {
+      params: {
+        query: query,
+        limit: limit,
+        fields: 'id,name,cover.image_id,involved_companies.company.name,first_release_date'
+      }
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err);
   }
 };

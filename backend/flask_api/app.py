@@ -91,7 +91,7 @@ def get_games():
         return jsonify({"error": str(err)}), 500
 
 
-@app.route("/specificGame", methods=["POST"])
+@app.route("/games/specificGame", methods=["POST"])
 def get_specific_game():
     try:
         api_client = get_api_client()
@@ -108,6 +108,33 @@ def get_specific_game():
             )
         response.raise_for_status()
         return jsonify(response.json())
+    except requests.exceptions.RequestException as err:
+        print(f"Error: {err}")
+        return jsonify({"error": str(err)}), 500
+
+
+@app.route("/games/search", methods=["GET"])
+def search_games():
+    try:
+        api_client = get_api_client()
+
+        search_query = request.args.get("query", "")
+        limit = request.args.get("limit", 10)
+        fields = request.args.get("fields", "id,name")
+
+        igdb_query = f'search "{search_query}"; fields {fields}; limit {limit};'
+
+        response = requests.post(
+            f"{api_client['base_url']}/games",
+            data=igdb_query,
+            headers=api_client["headers"],
+        )
+
+        response.raise_for_status()
+        games = response.json()
+
+        return jsonify(games)
+
     except requests.exceptions.RequestException as err:
         print(f"Error: {err}")
         return jsonify({"error": str(err)}), 500

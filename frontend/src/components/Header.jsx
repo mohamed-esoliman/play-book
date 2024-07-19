@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import SearchBox from "./SearchBox";
 import styles from "@/styles/components/Header.module.scss";
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
   const { data: session, status } = useSession();
+  
 
   useEffect(() => {
     document.documentElement.setAttribute(
@@ -15,6 +17,8 @@ const Header = () => {
       darkMode ? "dark" : "light"
     );
   }, [darkMode]);
+
+  
 
   const handleSignOut = async () => {
     try {
@@ -30,6 +34,9 @@ const Header = () => {
         <h1>PlayBook</h1>
       </Link>
       <nav>
+        {
+          status === "authenticated" && <SearchBox />
+        }
         <button onClick={() => setDarkMode(!darkMode)} />
         <ul>
           <li>
