@@ -29,6 +29,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Local env files
+.env*
 .env*.local
 /frontend/.env*.local
 
@@ -85,6 +86,7 @@ logs
 # Backend (if applicable)
 /backend/node_modules
 /backend/.env
+
 
 # Any other project-specific directories
 # /other-directory/node_modules
