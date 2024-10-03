@@ -37,7 +37,7 @@ const Header = () => {
         {
           status === "authenticated" && <SearchBox />
         }
-        <button onClick={() => setDarkMode(!darkMode)} />
+        <button className={styles.darkmodeButton} onClick={() => setDarkMode(!darkMode)} />
         <ul>
           <li>
             <Link href="/">Home</Link>
@@ -52,7 +52,7 @@ const Header = () => {
             <>
               <li>Welcome, {session.user.name || session.user.email}</li>
               <li>
-                <button onClick={handleSignOut}>Sign Out</button>
+                <button className = {styles.signOutButton} onClick={handleSignOut}>Sign Out</button>
               </li>
             </>
           ) : (
