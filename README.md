@@ -1,67 +1,46 @@
-
 # PlayBook
 
-PlayBook is a full-stack web application designed for gamers to browse and interact with various games. The app provides detailed game information, user authentication, and the ability to rate and comment on games.
-
-## Tech Stack
-
-![Next.js](https://img.shields.io/badge/-Next.js-000000?logo=next.js&logoColor=white)
-![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white)
-![Flask](https://img.shields.io/badge/-Flask-000000?logo=flask&logoColor=white)
-![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?logo=firebase&logoColor=white)
-![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white)
-![SCSS](https://img.shields.io/badge/-SCSS-CC6699?logo=sass&logoColor=white)
+A full-stack gaming platform where users can browse, track, and interact with video games.
 
 ## Features
 
-- **Game Data Fetching:** Uses IGDB API to fetch game details.
-- **User Authentication:** Secured with Firebase Auth, supporting OAuth 2.0 and MFA.
-- **Game Ratings and Comments:** Allows users to rate games and leave comments.
-- **Responsive UI:** Designed with SCSS for responsive and visually appealing layouts.
+- **User Authentication**: Email/password, Google login, password reset
+- **Game Browsing**: Search and browse games with modern pagination
+- **Game Details**: Comprehensive information, media gallery, similar games
+- **User Interactions**: Favorites, reviews, ratings, profile management
+- **Responsive Design**: Mobile-friendly with smooth animations
 
-## Installation
+## Tech Stack
 
-### Set up Firebase and IGDB API keys in a `.env` file.
+- **Frontend**: Next.js, TypeScript, Tailwind CSS, Framer Motion
+- **Backend**: Next.js API routes, Firebase Authentication, MongoDB
+- **External APIs**: IGDB (Internet Game Database)
 
-### MongoDB Setup
+## Getting Started
 
-1. Install MongoDB on your machine by following the official [MongoDB Installation Guide](https://docs.mongodb.com/manual/installation/).
-2. Once installed, start the MongoDB service.
+### Environment Setup
 
-### Backend (Flask)
+The project includes an `.env.example` file with all required environment variables. Copy this file to `.env.local` and add your keys:
 
-1. Clone the repository:
-   ```bash
-   git clone <repo-link>
-   ```
+```bash
+cp .env.example .env.local
+```
 
-2. Navigate to the `backend` folder:
-   ```bash
-    cd backend
-    ```
+Then edit `.env.local` with your actual credentials.
 
-3. Navigate to `flask_api` and set up the Flask service:
-   ```bash
-   cd flask_api
-   pip install -r requirements.txt
-   python app.py
-   ```
+### Installation
 
-### Frontend (Next.js)
-
-1. Navigate to the `frontend` folder:
-   ```bash
-   cd frontend
-   ```
-
+1. Clone the repository
 2. Install dependencies:
-   ```bash
+   ```
    npm install
    ```
-
 3. Start the development server:
-   ```bash
+   ```
    npm run dev
    ```
+4. Open http://localhost:3000 in your browser
 
-4. Open `http://localhost:3000` in your browser to view the project.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
